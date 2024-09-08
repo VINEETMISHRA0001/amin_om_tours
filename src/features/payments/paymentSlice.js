@@ -6,7 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 export const fetchPayments = createAsyncThunk(
   'payments/fetchPayments',
   async () => {
-    const response = await axios.get(`${API_BASE_URL}/admin/total-profit`); // Adjust the endpoint as needed
+    const response = await axios.get(`/api/admin/total-profit`); // Adjust the endpoint as needed
     return response.data;
   }
 );

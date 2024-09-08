@@ -6,7 +6,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 export const fetchFeedbacks = createAsyncThunk(
   'feedbacks/fetchFeedbacks',
   async () => {
-    const response = await axios.get(`${API_BASE_URL}/users/feedback`);
+    const response = await axios.get(`/api/users/feedback`);
     return response.data;
   }
 );
@@ -16,7 +16,7 @@ export const editFeedback = createAsyncThunk(
   'feedbacks/editFeedback',
   async ({ id, updatedFeedback }) => {
     const response = await axios.put(
-      `${API_BASE_URL}/users/feedback/${id}`,
+      `/api/users/feedback/${id}`,
       updatedFeedback
     );
     return response.data; // returning updated feedback
@@ -27,7 +27,7 @@ export const editFeedback = createAsyncThunk(
 export const deleteFeedback = createAsyncThunk(
   'feedbacks/deleteFeedback',
   async (id) => {
-    await axios.delete(`${API_BASE_URL}/users/feedback/${id}`);
+    await axios.delete(`/api/users/feedback/${id}`);
     return id; // returning the deleted feedback ID
   }
 );
