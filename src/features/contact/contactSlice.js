@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 // Async thunk to fetch contact data from the API
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async () => {
-    const response = await axios.get('/api/contact');
+    const response = await axios.get(`${API_BASE_URL}/contact`);
     return response.data.data; // returning only the data array
   }
 );
@@ -14,7 +14,10 @@ export const fetchContacts = createAsyncThunk(
 export const editContact = createAsyncThunk(
   'contacts/editContact',
   async ({ id, updatedData }) => {
-    const response = await axios.put(`/api/contact/${id}`, updatedData);
+    const response = await axios.put(
+      `${API_BASE_URL}/contact/${id}`,
+      updatedData
+    );
     return response.data; // Return updated contact data
   }
 );
@@ -23,7 +26,7 @@ export const editContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id) => {
-    await axios.delete(`/api/contact/${id}`);
+    await axios.delete(`${API_BASE_URL}/contact/${id}`);
     return id; // Return ID of the deleted contact
   }
 );

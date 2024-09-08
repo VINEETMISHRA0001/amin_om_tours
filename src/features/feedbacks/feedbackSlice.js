@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 // Async thunk to fetch feedback data from the API
 export const fetchFeedbacks = createAsyncThunk(
   'feedbacks/fetchFeedbacks',
   async () => {
-    const response = await axios.get('/api/users/feedback');
+    const response = await axios.get(`${API_BASE_URL}/users/feedback`);
     return response.data;
   }
 );
@@ -15,7 +16,7 @@ export const editFeedback = createAsyncThunk(
   'feedbacks/editFeedback',
   async ({ id, updatedFeedback }) => {
     const response = await axios.put(
-      `/api/users/feedback/${id}`,
+      `${API_BASE_URL}/users/feedback/${id}`,
       updatedFeedback
     );
     return response.data; // returning updated feedback
@@ -26,7 +27,7 @@ export const editFeedback = createAsyncThunk(
 export const deleteFeedback = createAsyncThunk(
   'feedbacks/deleteFeedback',
   async (id) => {
-    await axios.delete(`/api/users/feedback/${id}`);
+    await axios.delete(`${API_BASE_URL}/users/feedback/${id}`);
     return id; // returning the deleted feedback ID
   }
 );

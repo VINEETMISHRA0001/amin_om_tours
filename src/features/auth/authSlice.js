@@ -1,12 +1,16 @@
 // src/features/auth/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+        email,
+        password,
+      });
       localStorage.setItem('authToken', response.data.token); // Store token in localStorage
       localStorage.setItem('userDetails', JSON.stringify(response.data.user)); // Store token in localStorage
       return response.data; // Return user data and token

@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 // Define an initial state
 const initialState = {
   bookings: [], // Array to store booking records
@@ -15,7 +17,7 @@ export const fetchBookings = createAsyncThunk(
   'bookings/fetchBookings',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/api/admin/bookings');
+      const response = await axios.get(`${API_BASE_URL}/admin/bookings`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -27,7 +29,10 @@ export const createBooking = createAsyncThunk(
   'bookings/createBooking',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/admin/bookings', formData);
+      const response = await axios.post(
+        `${API_BASE_URL}/admin/bookings`,
+        formData
+      );
       return response.data; // Assuming response.data contains the booking object
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -41,7 +46,7 @@ export const updateBooking = createAsyncThunk(
   async ({ id, ...updatedData }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `/api/admin/bookings/${id}`,
+        `${API_BASE_URL}/admin/bookings/${id}`,
         updatedData
       );
       return response.data;
@@ -56,7 +61,7 @@ export const deleteBooking = createAsyncThunk(
   'booking/deleteBooking',
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`/api/admin/bookings/${id}`);
+      await axios.delete(`${API_BASE_URL}/admin/bookings/${id}`);
       return id;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
