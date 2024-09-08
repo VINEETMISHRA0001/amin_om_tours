@@ -9,7 +9,7 @@ export default defineConfig({
     proxy: {
       // Proxy requests starting with /api to https://om-tours-backend.vercel.app
       '/api': {
-        target: 'https://om-tours-backend.vercel.app/',
+        target: 'https://amin-om-tours.vercel.app/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
