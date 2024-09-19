@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// Use environment variable for API base URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 // Async thunk to fetch payment data from the API
 export const fetchPayments = createAsyncThunk(
   'payments/fetchPayments',
   async () => {
-    const response = await axios.get(`/api/admin/total-profit`); // Adjust the endpoint as needed
+    const response = await axios.get(`${API_BASE_URL}/admin/total-profit`); // Adjusted endpoint
     return response.data;
   }
 );

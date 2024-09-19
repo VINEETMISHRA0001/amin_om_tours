@@ -1,12 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// Use environment variable for API base URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 // Define an initial state
 const initialState = {
-  bookings: [], // Array to store booking records
-  booking: null, // Stores details of a single booking for creating
-  currentBooking: null, // Stores details of a single booking for editing
-  status: 'idle', // Can be 'idle', 'loading', 'succeeded', or 'failed'
+  bookings: [],
+  booking: null,
+  currentBooking: null,
+  status: 'idle',
   error: null,
 };
 
@@ -15,7 +18,7 @@ export const fetchBookings = createAsyncThunk(
   'bookings/fetchBookings',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/admin/bookings`);
+      const response = await axios.get(`${API_BASE_URL}/admin/bookings`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -27,21 +30,23 @@ export const createBooking = createAsyncThunk(
   'bookings/createBooking',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`/api/admin/bookings`, formData);
-      return response.data; // Assuming response.data contains the booking object
+      const response = await axios.post(
+        `${API_BASE_URL}/admin/bookings`,
+        formData
+      );
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
 
-// Define an async thunk for updating a booking
 export const updateBooking = createAsyncThunk(
   'bookings/updateBooking',
   async ({ id, ...updatedData }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        `/api/admin/bookings/${id}`,
+        `${API_BASE_URL}/admin/bookings/${id}`,
         updatedData
       );
       return response.data;
@@ -51,12 +56,11 @@ export const updateBooking = createAsyncThunk(
   }
 );
 
-// Define an async thunk for deleting a booking
 export const deleteBooking = createAsyncThunk(
-  'booking/deleteBooking',
+  'bookings/deleteBooking',
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`/api/admin/bookings/${id}`);
+      await axios.delete(`${API_BASE_URL}/admin/bookings/${id}`);
       return id;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -94,7 +98,7 @@ const bookingSlice = createSlice({
       })
       .addCase(createBooking.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.booking = action.payload.booking; // Accessing the booking object from response
+        state.booking = action.payload.booking;
       })
       .addCase(createBooking.rejected, (state, action) => {
         state.status = 'failed';

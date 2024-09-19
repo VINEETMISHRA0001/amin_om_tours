@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// Use environment variable for API base URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 // Async thunk to fetch feedback data from the API
 export const fetchFeedbacks = createAsyncThunk(
   'feedbacks/fetchFeedbacks',
   async () => {
-    const response = await axios.get(`/api/users/feedback`);
+    const response = await axios.get(`${API_BASE_URL}/users/feedback`);
     return response.data;
   }
 );
@@ -15,10 +18,10 @@ export const editFeedback = createAsyncThunk(
   'feedbacks/editFeedback',
   async ({ id, updatedFeedback }) => {
     const response = await axios.put(
-      `/api/users/feedback/${id}`,
+      `${API_BASE_URL}/users/feedback/${id}`,
       updatedFeedback
     );
-    return response.data; // returning updated feedback
+    return response.data; // Returning updated feedback
   }
 );
 
@@ -26,8 +29,8 @@ export const editFeedback = createAsyncThunk(
 export const deleteFeedback = createAsyncThunk(
   'feedbacks/deleteFeedback',
   async (id) => {
-    await axios.delete(`/api/users/feedback/${id}`);
-    return id; // returning the deleted feedback ID
+    await axios.delete(`${API_BASE_URL}/users/feedback/${id}`);
+    return id; // Returning the deleted feedback ID
   }
 );
 
@@ -65,7 +68,7 @@ const feedbackSlice = createSlice({
 
       // Handle delete feedback
       .addCase(deleteFeedback.fulfilled, (state, action) => {
-        state.feedbacks = state.feedbacks.feedbacks.filter(
+        state.feedbacks = state.feedbacks.filter(
           (fb) => fb._id !== action.payload
         );
       });

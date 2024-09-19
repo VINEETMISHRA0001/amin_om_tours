@@ -1,8 +1,8 @@
-// src/slices/vehicleSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-// API endpoint
-const API_URL = `/api/admin/vehicles`;
+
+// Use environment variable for API base URL
+const API_URL = `${import.meta.env.VITE_API_URL}/admin/vehicles`;
 
 // Thunks for CRUD operations
 export const fetchVehicles = createAsyncThunk(
@@ -16,7 +16,10 @@ export const fetchVehicles = createAsyncThunk(
 export const createVehicle = createAsyncThunk(
   'vehicles/createVehicle',
   async (vehicle) => {
-    const response = await axios.post(`/api/admin/new-vehicle`, vehicle);
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/admin/new-vehicle`,
+      vehicle
+    );
     return response.data;
   }
 );

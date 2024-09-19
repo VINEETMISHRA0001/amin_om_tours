@@ -1,12 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// Use environment variable for API base URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 // Async thunk to fetch contact data from the API
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async () => {
-    const response = await axios.get(`/api/contact`);
-    return response.data.data; // returning only the data array
+    const response = await axios.get(`${API_BASE_URL}/contact`);
+    return response.data.data; // Returning only the data array
   }
 );
 
@@ -14,7 +17,10 @@ export const fetchContacts = createAsyncThunk(
 export const editContact = createAsyncThunk(
   'contacts/editContact',
   async ({ id, updatedData }) => {
-    const response = await axios.put(`/api/contact/${id}`, updatedData);
+    const response = await axios.put(
+      `${API_BASE_URL}/contact/${id}`,
+      updatedData
+    );
     return response.data; // Return updated contact data
   }
 );
@@ -23,7 +29,7 @@ export const editContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id) => {
-    await axios.delete(`/api/contact/${id}`);
+    await axios.delete(`${API_BASE_URL}/contact/${id}`);
     return id; // Return ID of the deleted contact
   }
 );
@@ -49,7 +55,6 @@ const contactSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      // Handle editing a contact
       .addCase(editContact.fulfilled, (state, action) => {
         const updatedContact = action.payload;
         const index = state.contacts.findIndex(
@@ -59,7 +64,6 @@ const contactSlice = createSlice({
           state.contacts[index] = updatedContact;
         }
       })
-      // Handle deleting a contact
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.contacts = state.contacts.filter(
           (contact) => contact._id !== action.payload
