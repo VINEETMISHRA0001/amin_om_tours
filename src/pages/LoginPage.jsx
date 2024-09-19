@@ -29,7 +29,7 @@ const LoginPage = () => {
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div>
             <h1 className="text-center font-bold text-xl text-indigo-600">
-              🌴 Om Tours 🎄
+              🌴 Om Banna Tours 🎄
             </h1>
           </div>
           <div className="mt-12 flex flex-col items-center">

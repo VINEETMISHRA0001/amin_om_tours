@@ -34,7 +34,7 @@ const Sidebar = () => {
             onClick={toggleSidebar}
           />
           {!isCollapsed && (
-            <span className="text-2xl font-bold ml-3">OmTours</span>
+            <span className="text-2xl font-bold ml-3">Om Banna Tours</span>
           )}
 
           <BiSolidTree
