@@ -7,7 +7,6 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     proxy: {
-      // Proxy requests starting with /api to https://om-tours-backend.vercel.app
       '/api': {
         target: 'https://om-tours-backend.vercel.app/',
         changeOrigin: true,
