@@ -1,7 +1,6 @@
 // src/features/auth/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 // Async thunk to fetch contact data from the API
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',

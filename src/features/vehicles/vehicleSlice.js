@@ -1,7 +1,6 @@
 // src/slices/vehicleSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-const API_BASE_URL = import.meta.env.VITE_API_URL;
 // API endpoint
 const API_URL = `/api/admin/vehicles`;
 
