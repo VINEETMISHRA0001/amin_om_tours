@@ -8,9 +8,8 @@ import {
   BiSolidTree,
 } from 'react-icons/bi';
 import { BsCardImage } from 'react-icons/bs';
-import { FaCar, FaHome } from 'react-icons/fa';
+import { FaCar, FaHome, FaUmbrellaBeach } from 'react-icons/fa';
 import { FcFeedback } from 'react-icons/fc';
-import { MdSpaceDashboard } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -34,7 +33,7 @@ const Sidebar = () => {
             onClick={toggleSidebar}
           />
           {!isCollapsed && (
-            <span className="text-2xl font-bold ml-3">Om Banna Tours</span>
+            <span className="text-2xl font-bold ml-3">Admin</span>
           )}
 
           <BiSolidTree
@@ -128,6 +127,16 @@ const Sidebar = () => {
             >
               <BiCog className="h-6 w-6 text-teal-400" />
               {!isCollapsed && <span className="ml-4">Settings</span>}
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/tours"
+              className="flex items-center p-3 rounded-md hover:bg-gray-800 transition duration-200"
+            >
+              <FaUmbrellaBeach className="h-6 w-6 text-red-400" />
+              {!isCollapsed && <span className="ml-4">Tours</span>}
             </Link>
           </li>
         </ul>

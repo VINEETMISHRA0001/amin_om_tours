@@ -10,6 +10,7 @@ import AllBookings from './pages/AllBookingsPage';
 import AdminVehicles from './pages/AdminVehicles';
 import AllVehicles from './pages/AllVehicles';
 import AdminProfilePage from './pages/AdminProfile';
+import AdminTourPage from './pages/TourPage';
 // import ResetPassword from './pages/ResetPassword';
 
 const App = () => {
@@ -46,6 +47,10 @@ const App = () => {
         <Route
           path="/my-profile"
           element={<ProtectedRoute element={<AdminProfilePage />} />}
+        />
+        <Route
+          path="/tours"
+          element={<ProtectedRoute element={<AdminTourPage />} />}
         />
 
         {/* Add other routes as needed */}

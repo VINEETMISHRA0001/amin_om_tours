@@ -8,8 +8,16 @@ const API_URL = `${import.meta.env.VITE_API_URL}/admin/vehicles`;
 export const fetchVehicles = createAsyncThunk(
   'vehicles/fetchVehicles',
   async () => {
-    const response = await axios.get(API_URL);
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/admin/vehicles`
+      );
+      console.log('API Response:', response.data); // Log the data
+      return response.data; // Ensure this is the expected JSON format
+    } catch (error) {
+      console.error('Error fetching vehicles:', error); // Log any errors
+      throw new Error(error.response ? error.response.data : 'Network Error'); // Rethrow with more info
+    }
   }
 );
 
@@ -56,8 +64,9 @@ const vehicleSlice = createSlice({
       })
       .addCase(fetchVehicles.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.vehicles = action.payload;
+        state.vehicles = action.payload ? action.payload : []; // Ensure it's an array
       })
+
       .addCase(fetchVehicles.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;

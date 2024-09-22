@@ -7,6 +7,7 @@ import feedbackReducer from './features/feedbacks/feedbackSlice';
 import paymentsReducer from './features/payments/paymentSlice';
 import bookingReducer from './features/bookings/bookingsSlice';
 import vehicleReducer from './features/vehicles/vehicleSlice';
+import tourReducer from './features/tours/tourSlice';
 
 // Configure persistence
 const persistConfig = {
@@ -26,6 +27,7 @@ const store = configureStore({
     payments: paymentsReducer,
     booking: bookingReducer,
     vehicles: vehicleReducer,
+    tour: tourReducer,
   },
   // Allow non-serializable values (for redux-persist actions)
   middleware: (getDefaultMiddleware) =>
